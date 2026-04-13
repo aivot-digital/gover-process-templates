@@ -1,0 +1,12 @@
+{
+  "processes": [
+    {
+      "name": "Webhook-gesteuertes Verfahren",
+      "vendor": "Aivot",
+      "path": "./processes/webhook-5.0.0-alpha-71-648.json",
+      "appVersion": "5.0.0-alpha-71",
+      "appBuildNumber": "648"
+    }
+  ],
+  "nodes": []
+}
