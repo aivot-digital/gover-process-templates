@@ -44,6 +44,17 @@ def require_object(data: dict[str, Any], key: str, path: Path) -> dict[str, Any]
     return value
 
 
+def metadata_path_for(export_path: Path) -> Path:
+    return export_path.with_suffix(".meta.json")
+
+
+def load_metadata_file(export_path: Path) -> tuple[Path, dict[str, Any]]:
+    metadata_path = metadata_path_for(export_path)
+    if not metadata_path.is_file():
+        raise IndexBuildError(f"Missing metadata file for {export_path}: {metadata_path}")
+    return metadata_path, load_json_file(metadata_path)
+
+
 def to_index_path(path: Path) -> str:
     relative_path = path.relative_to(ROOT_DIR).as_posix()
     return f"./{relative_path}"
@@ -52,15 +63,21 @@ def to_index_path(path: Path) -> str:
 def iter_export_files(directory: Path) -> list[Path]:
     if not directory.exists():
         return []
-    return sorted(path for path in directory.rglob("*.json") if path.is_file())
+    return sorted(
+        path
+        for path in directory.rglob("*.json")
+        if path.is_file() and not path.name.endswith(".meta.json")
+    )
 
 
 def build_process_entry(path: Path) -> dict[str, str]:
     export_data = load_json_file(path)
-    process = require_object(export_data, "process", path)
+    require_object(export_data, "process", path)
+    metadata_path, metadata = load_metadata_file(path)
 
     return {
-        "name": require_string(process, "internalTitle", path),
+        "name": require_string(metadata, "name", metadata_path),
+        "description": require_string(metadata, "description", metadata_path),
         "vendor": require_string(export_data, "createdByVendor", path),
         "path": to_index_path(path),
         "appVersion": require_string(export_data, "appVersion", path),
@@ -70,11 +87,12 @@ def build_process_entry(path: Path) -> dict[str, str]:
 
 def build_node_entry(path: Path) -> dict[str, str]:
     export_data = load_json_file(path)
-    node = require_object(export_data, "node", path)
-    node_name = require_string(node, "name", path)
+    require_object(export_data, "node", path)
+    metadata_path, metadata = load_metadata_file(path)
 
     return {
-        "name": f"{node_name} Prozesselement",
+        "name": require_string(metadata, "name", metadata_path),
+        "description": require_string(metadata, "description", metadata_path),
         "vendor": require_string(export_data, "createdByVendor", path),
         "path": to_index_path(path),
         "appVersion": require_string(export_data, "appVersion", path),
