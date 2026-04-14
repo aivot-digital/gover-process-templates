@@ -2,6 +2,7 @@
   "processes": [
     {
       "name": "Webhook-gesteuertes Verfahren",
+      "description": "Ein Webhook-gesteuertes Verfahren, das Daten entgegennimmt und verarbeitet, wenn ein bestimmtes Ereignis eintritt. Es ermöglicht die Integration von Drittanbieteranwendungen und die Automatisierung von Arbeitsabläufen durch das Senden von HTTP-Anfragen an Gover.",
       "vendor": "Aivot",
       "path": "./processes/webhook-5.0.0-alpha-71-648.json",
       "appVersion": "5.0.0-alpha-71",
