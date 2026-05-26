@@ -5,7 +5,7 @@
   "createdByVendor": "Aivot",
   "process": {
     "id": 0,
-    "internalTitle": "Webhook-gesteuertes Verfahren",
+    "internalTitle": "Webhook-gesteuerter Prozess",
     "departmentId": 0,
     "accessKey": "",
     "versionCount": 0,
@@ -18,7 +18,7 @@
     "processId": 0,
     "processVersion": 0,
     "status": "Drafted",
-    "publicTitle": "Neues Verfahren",
+    "publicTitle": "Neuer Prozess",
     "crated": "2026-04-13T15:14:02.356Z",
     "updated": "2026-04-13T15:14:02.356Z",
     "published": null,
