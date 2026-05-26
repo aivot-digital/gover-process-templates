@@ -1,0 +1,4 @@
+{
+  "name": "OZG-Antragsprozess",
+  "description": "Ein beispielhafter OZG-Antragsprozess, bei dem Formulardaten online erfasst werden, ein Erfolgsbescheid als PDF erstellt und automatisch per E-Mail an die Antragsteller:in zugestellt wird."
+}
